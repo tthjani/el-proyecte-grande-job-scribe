@@ -13,9 +13,14 @@ public class JobScribeController : ControllerBase
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetJobs")]
-    public IEnumerable<JobScribe> Get()
+    [HttpGet(Name = "Test")]
+    public ActionResult Get()
     {
-        return null;
+        var respond = new
+        {
+            res =
+            "Successful connection to the server!"
+        };
+        return Ok(respond);
     }
 }
