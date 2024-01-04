@@ -1,3 +1,5 @@
+using JobScribe_stranger_strings.Services.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +17,8 @@ builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSingleton<ICompanyRepository, CompanyRepository>();
+
 
 var app = builder.Build();
 
