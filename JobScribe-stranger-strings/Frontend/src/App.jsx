@@ -5,7 +5,7 @@ function App() {
   const [test, setTest] = useState("");
 
   function getData() {
-    fetch("http://localhost:5225/JobScribe")
+    fetch("http://localhost:5225/api/JobScribe")
       .then((response) => response.json())
       .then((data) => setTest(data.res))
       .catch((error) => console.error(error));
