@@ -46,4 +46,24 @@ public class JobScribeController : ControllerBase
         }
     }
     
+    [HttpPost("AddCompany")]
+    public async Task<ActionResult<Company>> AddCompany(Company company)
+    {
+        try
+        {
+            if (company == null)
+            {
+                return BadRequest($"Please add a valid Company");
+            }
+
+            _companyRepository.Add(company);
+
+            return Ok(company);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occured");
+        }
+    }
+    
 }
