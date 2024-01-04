@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace JobScribe_stranger_strings.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/api/[controller]")]
 public class JobScribeController : ControllerBase
 {
     private readonly ILogger<JobScribeController> _logger;
@@ -24,6 +24,26 @@ public class JobScribeController : ControllerBase
     {
         var respond = _companyRepository.GetAll(); 
         return Ok(respond);
+    }
+    
+    [HttpGet("GetCompanyByName")]
+    public async Task<ActionResult<Company>> GetCompanyByName(string companyName)
+    {
+        try
+        {
+            var company = _companyRepository.GetByName(companyName);
+
+            if (company == null)
+            {
+                return NotFound($"Company {companyName} not found");
+            }
+
+            return Ok(company);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occured");
+        }
     }
     
 }
