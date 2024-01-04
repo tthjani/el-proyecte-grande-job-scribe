@@ -1,0 +1,28 @@
+version: "2.23.0"
+services:
+  jobscribe_backend:
+    image: jobscribe_backend
+    build: 
+      context: ./Backend/JobScribe-stranger-strings
+    container_name: jobscribe-backend
+    ports:
+      - "5225:5225"
+    networks:
+      - jobscribe-network
+
+  jobscribe-frontend:
+    container_name: jobscribe-frontend
+    image: jobscribe_frontend
+    build: 
+      context: ./Frontend
+    ports:
+      - "5173:5173"
+    networks:
+      - jobscribe-network
+    depends_on:
+      - jobscribe_backend
+    environment:      
+      BACKEND_URL: 'http://jobscribe_backend:5225'
+
+networks:
+  jobscribe-network:
