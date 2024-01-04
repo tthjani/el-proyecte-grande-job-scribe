@@ -6,6 +6,6 @@ public class Company
     public string Name { get; init; }
     public string Location { get; init; }
     public string Industry { get; init; }
-    public DateOnly Founded { get; init; }
+    public int Founded { get; init; }
     public string Description { get; init; }
 }
