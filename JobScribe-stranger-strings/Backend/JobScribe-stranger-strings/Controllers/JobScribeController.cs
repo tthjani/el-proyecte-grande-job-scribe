@@ -66,4 +66,25 @@ public class JobScribeController : ControllerBase
         }
     }
     
+    [HttpDelete("DeleteCompany")]
+    public async Task<ActionResult<Company>> DeleteCompany(string companyName)
+    {
+        try
+        {
+            var company = _companyRepository.GetByName(companyName);
+            if (company == null)
+            {
+                return NotFound($"Company {companyName} not found");
+            }
+
+            _companyRepository.Delete(company);
+
+            return Ok($"Company {company.Name} has succesfully deleted");
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occured");
+        }
+    }
+    
 }
