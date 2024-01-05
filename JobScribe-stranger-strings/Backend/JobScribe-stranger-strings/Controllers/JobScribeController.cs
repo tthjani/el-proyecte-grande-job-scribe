@@ -19,10 +19,20 @@ public class JobScribeController : ControllerBase
         _companyRepository = companyRepository;
     }
 
+    [HttpGet("Test")]
+    public ActionResult Test()
+    {
+        {
+            var respond = new { res = "Successfully connected to the server!" };
+            return Ok(respond);
+        }
+    }
+
     [HttpGet("GetAllCompanies")]
     public ActionResult GetAllCompanies()
     {
-        var respond = _companyRepository.GetAll(); 
+        var respond =new {res=_companyRepository.GetAll()};
+        
         return Ok(respond);
     }
     
@@ -31,7 +41,7 @@ public class JobScribeController : ControllerBase
     {
         try
         {
-            var company = _companyRepository.GetByName(companyName);
+            var company = new {res=_companyRepository.GetByName(companyName)};
 
             if (company == null)
             {
@@ -57,8 +67,8 @@ public class JobScribeController : ControllerBase
             }
 
             _companyRepository.Add(company);
-
-            return Ok(company);
+            var response = new { res = company };
+            return Ok(response);
         }
         catch (Exception ex)
         {
@@ -78,8 +88,8 @@ public class JobScribeController : ControllerBase
             }
 
             _companyRepository.Delete(company);
-
-            return Ok($"Company {company.Name} has succesfully deleted");
+            var response = new { res = $"Company {company.Name} has succesfully deleted" };
+            return Ok(response);
         }
         catch (Exception ex)
         {
