@@ -19,11 +19,11 @@ public class JobScribeController : ControllerBase
         _companyRepository = companyRepository;
     }
 
-    [HttpGet("Test")]
+    [HttpGet("[action]")]
     public ActionResult Test()
     {
         {
-            var respond = new { res = "Successfully connected to the server!" };
+            var respond = new { res= "Successfully connected to the server!" };
             return Ok(respond);
         }
     }
