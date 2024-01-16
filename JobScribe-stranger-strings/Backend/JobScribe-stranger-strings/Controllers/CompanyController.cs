@@ -8,12 +8,12 @@ namespace JobScribe_stranger_strings.Controllers;
 
 [ApiController]
 [Route("/api/[controller]")]
-public class JobScribeController : ControllerBase
+public class CompanyController : ControllerBase
 {
-    private readonly ILogger<JobScribeController> _logger;
+    private readonly ILogger<CompanyController> _logger;
     private readonly ICompanyRepository _companyRepository;
 
-    public JobScribeController(ILogger<JobScribeController> logger, ICompanyRepository companyRepository)
+    public CompanyController(ILogger<CompanyController> logger, ICompanyRepository companyRepository)
     {
         _logger = logger;
         _companyRepository = companyRepository;
