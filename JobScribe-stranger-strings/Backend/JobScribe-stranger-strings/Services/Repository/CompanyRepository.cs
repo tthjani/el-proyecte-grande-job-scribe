@@ -1,5 +1,6 @@
 using JobScribe_stranger_strings.Data;
 using JobScribe_stranger_strings.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobScribe_stranger_strings.Services.Repository;
 
@@ -14,7 +15,7 @@ public class CompanyRepository : ICompanyRepository
     public Company? GetByName(string name)
     {
         using var dbContext = new JobScribeContext();
-        return dbContext.Companies.FirstOrDefault(c => c.Name == name);
+        return dbContext.Companies.SingleOrDefault(c => c.Name == name);
     }
 
     public void Add(Company company)
