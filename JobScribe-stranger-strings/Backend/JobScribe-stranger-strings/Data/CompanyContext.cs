@@ -5,13 +5,16 @@ namespace JobScribe_stranger_strings.Data;
 
 public class CompanyContext : DbContext
 {
+    public CompanyContext(DbContextOptions options) : base(options)
+    {
+    }
+
     public DbSet<Company> Companies { get; set; }
     
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(
-            "Server=localhost,1434;Database=JobScribe;User Id=sa;Password=yourStrong(!)Password;Encrypt=false;");
-    }
+        optionsBuilder.UseSqlServer(optionsBuilder.Configuration.GetConnectionString("JobScribeConnection"));
+    }*/
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
