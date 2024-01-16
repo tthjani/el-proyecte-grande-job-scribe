@@ -5,7 +5,7 @@ namespace JobScribe_stranger_strings.Data;
 
 public class CompanyContext : DbContext
 {
-    public CompanyContext(DbContextOptions options) : base(options)
+    public CompanyContext(DbContextOptions<CompanyContext> options) : base(options)
     {
     }
 
@@ -21,6 +21,5 @@ public class CompanyContext : DbContext
         builder.Entity<Company>()
             .HasIndex(c => c.Name)
             .IsUnique();
-
     }
 }
