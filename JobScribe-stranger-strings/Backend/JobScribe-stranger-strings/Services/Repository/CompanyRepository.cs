@@ -8,26 +8,26 @@ public class CompanyRepository : ICompanyRepository
 {
     public IEnumerable<Company> GetAll()
     {
-        using var dbContext = new JobScribeContext();
+        using var dbContext = new CompanyContext();
         return dbContext.Companies.ToList();
     }
 
     public Company? GetByName(string name)
     {
-        using var dbContext = new JobScribeContext();
+        using var dbContext = new CompanyContext();
         return dbContext.Companies.SingleOrDefault(c => c.Name == name);
     }
 
     public void Add(Company company)
     {
-        using var dbContext = new JobScribeContext();
+        using var dbContext = new CompanyContext();
         dbContext.Add(company);
         dbContext.SaveChanges();
     }
 
     public void Delete(Company company)
     {
-        using var dbContext = new JobScribeContext();
+        using var dbContext = new CompanyContext();
         dbContext.Remove(company);
         dbContext.SaveChanges();
     }
