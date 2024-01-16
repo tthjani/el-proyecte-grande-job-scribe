@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobScribe_stranger_strings.Data;
 
-public class JobScribeContext : DbContext
+public class CompanyContext : DbContext
 {
     public DbSet<Company> Companies { get; set; }
     
@@ -19,7 +19,7 @@ public class JobScribeContext : DbContext
             .HasIndex(c => c.Name)
             .IsUnique();
 
-        builder.Entity<Company>()
+       /* builder.Entity<Company>()
             .HasData(
 
                 new Company
@@ -43,6 +43,6 @@ public class JobScribeContext : DbContext
                 {
                     Id = 4, Name = "NIX Tech", Location = "Budapest", Industry = "Outsourcing", Founded = 2022,
                     Description = "NIX is a global supplier of software engineering and IT outsourcing services. NIX teams collaborate with partners from different countries. Our specialists have experience in developing innovative projects from e-commerce to cloud for some of the largest companies in the world, including the Fortune 500. The teams are focused on the stable development of the international IT market, business, and their own professional skills."
-                });
+                });*/
     }
 }
