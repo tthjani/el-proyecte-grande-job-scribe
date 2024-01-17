@@ -4,7 +4,7 @@ public class CVModel
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public DateOnly BirthDate { get; set; }
+    public DateTime BirthDate { get; set; }
     public string Email { get; set; }
     public string TelephoneNumber { get; set; }
     public string Location { get; set; }
@@ -12,9 +12,9 @@ public class CVModel
     public string Category { get; set; }
     public string Education { get; set; }
     public string Description { get; set; }
-    public ISet<string>? Experience { get; set; }
-    public ISet<string> Languages { get; set; }
-    public ISet<string> Skills { get; set; }
-    public ISet<string>?  AdditionalSkills { get; set; }
     public bool IsActive { get; set; }
+    public List<ExperienceModel>? Experience { get; set; }
+    public List<LanguageModel> Languages { get; set; }
+    public List<MustHaveModel> MustHave { get; set; }
+    public List<NiceToHaveModel>?  NiceToHave { get; set; }
 }
