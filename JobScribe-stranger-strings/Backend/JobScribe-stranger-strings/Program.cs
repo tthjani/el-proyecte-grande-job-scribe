@@ -47,6 +47,7 @@ builder.Services
         };
     });
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddDbContext<UsersContext>();
 
 
 var app = builder.Build();
