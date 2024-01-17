@@ -29,7 +29,7 @@ public class CompanyController : ControllerBase
         }
     }
 
-    [HttpGet("GetAllCompanies"), Authorize]
+    [HttpGet("GetAllCompanies"), Authorize(Roles="User, Admin")]
     public ActionResult GetAllCompanies()
     {
         var respond =new {res=_companyRepository.GetAll()};
@@ -37,7 +37,7 @@ public class CompanyController : ControllerBase
         return Ok(respond);
     }
     
-    [HttpGet("GetCompanyByName")]
+    [HttpGet("GetCompanyByName"), Authorize(Roles="Admin")]
     public async Task<ActionResult<Company>> GetCompanyByName(string companyName)
     {
         try
