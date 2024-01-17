@@ -6,34 +6,34 @@ namespace JobScribe_stranger_strings.Services.Repository;
 
 public class CompanyRepository : ICompanyRepository
 {
-    private readonly CompanyContext _companyContext;
+    private readonly JobScribeContext _context;
 
-    public CompanyRepository(CompanyContext companyContext)
+    public CompanyRepository(JobScribeContext context)
     {
-        _companyContext = companyContext;
+        _context = context;
     }
 
 
     public IEnumerable<Company> GetAll()
     {
-       return _companyContext.Companies.ToList();
+       return _context.Companies.Include(j => j.JobOffers).ToList();
     }
 
     public Company? GetByName(string name)
     {
-        return _companyContext.Companies.SingleOrDefault(c => c.Name == name);
+        return _context.Companies.SingleOrDefault(c => c.Name == name);
     }
 
     public void Add(Company company)
     {
         
-        _companyContext.Add(company);
-        _companyContext.SaveChanges();
+        _context.Add(company);
+        _context.SaveChanges();
     }
 
     public void Delete(Company company)
     {
-        _companyContext.Remove(company);
-        _companyContext.SaveChanges();
+        _context.Remove(company);
+        _context.SaveChanges();
     }
 }

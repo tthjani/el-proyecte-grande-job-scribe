@@ -8,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<CompanyContext>(options =>
+
+builder.Services.AddDbContext<JobScribeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("JobScribeConnection")));
+
 builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
     builder =>
     {

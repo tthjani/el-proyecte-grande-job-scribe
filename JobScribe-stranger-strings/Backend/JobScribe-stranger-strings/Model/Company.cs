@@ -8,4 +8,5 @@ public class Company
     public string Industry { get; init; }
     public int Founded { get; init; }
     public string Description { get; init; }
+    public List<JobOffer>? JobOffers { get; set; }
 }
