@@ -1,6 +1,7 @@
 using JobScribe_stranger_strings.Data;
 using JobScribe_stranger_strings.Model;
 using JobScribe_stranger_strings.Services.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +29,7 @@ public class CompanyController : ControllerBase
         }
     }
 
-    [HttpGet("GetAllCompanies")]
+    [HttpGet("GetAllCompanies"), Authorize]
     public ActionResult GetAllCompanies()
     {
         var respond =new {res=_companyRepository.GetAll()};
