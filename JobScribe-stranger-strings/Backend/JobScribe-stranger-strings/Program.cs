@@ -43,7 +43,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 AddRoles();
-
+AddAdmin();
 app.Run();
 
 
@@ -107,11 +107,11 @@ void AddRoles()
     var tAdmin = CreateAdminRole(roleManager);
     tAdmin.Wait();
 
-    var tApplicant = CreateApplicantRole(roleManager);
-    tApplicant.Wait();
+    var tUser = CreateUserRole(roleManager);
+    tUser.Wait();
     
-    var tCorporate = CreateCorporateRole(roleManager);
-    tCorporate.Wait();
+    // var tCorporate = CreateCorporateRole(roleManager);
+    // tCorporate.Wait();
 }
 
 async Task CreateAdminRole(RoleManager<IdentityRole> roleManager)
@@ -119,17 +119,38 @@ async Task CreateAdminRole(RoleManager<IdentityRole> roleManager)
     await roleManager.CreateAsync(new IdentityRole("Admin")); //The role string should better be stored as a constant or a value in appsettings
 }
 
-async Task CreateApplicantRole(RoleManager<IdentityRole> roleManager)
+async Task CreateUserRole(RoleManager<IdentityRole> roleManager)
 {
-    await roleManager.CreateAsync(new IdentityRole("Applicant")); //The role string should better be stored as a constant or a value in appsettings
+    await roleManager.CreateAsync(new IdentityRole("User")); //The role string should better be stored as a constant or a value in appsettings
 }
 
-async Task CreateCorporateRole(RoleManager<IdentityRole> roleManager)
+// async Task CreateCorporateRole(RoleManager<IdentityRole> roleManager)
+// {
+//     await roleManager.CreateAsync(new IdentityRole("Corporate")); //The role string should better be stored as a constant or a value in appsettings
+// }
+
+void AddAdmin()
 {
-    await roleManager.CreateAsync(new IdentityRole("Corporate")); //The role string should better be stored as a constant or a value in appsettings
+    var tAdmin = CreateAdminIfNotExists();
+    tAdmin.Wait();
 }
 
+async Task CreateAdminIfNotExists()
+{
+    using var scope = app.Services.CreateScope();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    var adminInDb = await userManager.FindByEmailAsync("admin@admin.com");
+    if (adminInDb == null)
+    {
+        var admin = new IdentityUser { UserName = "admin", Email = "admin@admin.com" };
+        var adminCreated = await userManager.CreateAsync(admin, "admin123");
 
+        if (adminCreated.Succeeded)
+        {
+            await userManager.AddToRoleAsync(admin, "Admin");
+        }
+    }
+}
 
 void AddDbContext()
 {
