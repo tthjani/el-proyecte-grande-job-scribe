@@ -64,6 +64,7 @@ builder.Services
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddDbContext<UsersContext>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 
 var app = builder.Build();
