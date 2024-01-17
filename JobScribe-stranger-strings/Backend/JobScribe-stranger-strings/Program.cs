@@ -1,7 +1,9 @@
 using System.Text;
 using JobScribe_stranger_strings.Data;
+using JobScribe_stranger_strings.Services.Authentication;
 using JobScribe_stranger_strings.Services.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -46,8 +48,22 @@ builder.Services
             ),
         };
     });
+
+builder.Services
+    .AddIdentityCore<IdentityUser>(options =>
+    {
+        options.SignIn.RequireConfirmedAccount = false;
+        options.User.RequireUniqueEmail = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+    })
+    .AddEntityFrameworkStores<UsersContext>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddDbContext<UsersContext>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 var app = builder.Build();
