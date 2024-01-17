@@ -42,6 +42,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+AddRoles();
+
 app.Run();
 
 
@@ -96,6 +98,38 @@ void ConfigureSwagger()
         });
     }); 
 }
+
+void AddRoles()
+{
+    using var scope = app.Services.CreateScope(); // RoleManager is a scoped service, therefore we need a scope instance to access it
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var tAdmin = CreateAdminRole(roleManager);
+    tAdmin.Wait();
+
+    var tApplicant = CreateApplicantRole(roleManager);
+    tApplicant.Wait();
+    
+    var tCorporate = CreateCorporateRole(roleManager);
+    tCorporate.Wait();
+}
+
+async Task CreateAdminRole(RoleManager<IdentityRole> roleManager)
+{
+    await roleManager.CreateAsync(new IdentityRole("Admin")); //The role string should better be stored as a constant or a value in appsettings
+}
+
+async Task CreateApplicantRole(RoleManager<IdentityRole> roleManager)
+{
+    await roleManager.CreateAsync(new IdentityRole("Applicant")); //The role string should better be stored as a constant or a value in appsettings
+}
+
+async Task CreateCorporateRole(RoleManager<IdentityRole> roleManager)
+{
+    await roleManager.CreateAsync(new IdentityRole("Corporate")); //The role string should better be stored as a constant or a value in appsettings
+}
+
+
 
 void AddDbContext()
 {
