@@ -115,8 +115,8 @@ void AddRoles()
     var tUser = CreateUserRole(roleManager);
     tUser.Wait();
     
-    // var tCorporate = CreateCorporateRole(roleManager);
-    // tCorporate.Wait();
+    var tCompany = CreateCompanyRole(roleManager);
+    tCompany.Wait();
 }
 
 async Task CreateAdminRole(RoleManager<IdentityRole> roleManager)
@@ -129,10 +129,10 @@ async Task CreateUserRole(RoleManager<IdentityRole> roleManager)
     await roleManager.CreateAsync(new IdentityRole("User")); //The role string should better be stored as a constant or a value in appsettings
 }
 
-// async Task CreateCorporateRole(RoleManager<IdentityRole> roleManager)
-// {
-//     await roleManager.CreateAsync(new IdentityRole("Corporate")); //The role string should better be stored as a constant or a value in appsettings
-// }
+async Task CreateCompanyRole(RoleManager<IdentityRole> roleManager)
+{
+    await roleManager.CreateAsync(new IdentityRole("Company")); //The role string should better be stored as a constant or a value in appsettings
+}
 
 void AddAdmin()
 {
