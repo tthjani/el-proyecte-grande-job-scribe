@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Navbar from "./Components/Navbar.jsx";
 
+
 function App() {
   const [companyData, setCompanyData] = useState("");
 

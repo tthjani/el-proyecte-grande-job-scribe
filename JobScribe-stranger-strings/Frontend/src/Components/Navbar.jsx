@@ -1,47 +1,36 @@
 import { useState } from "react";
+import {Outlet, Link} from "react-router-dom";
 
-function Navbar() {
-  const [registerDropdown, setRegisterDropdown] = useState(false);
-  const [loginDropdown, setLoginDropdown] = useState(false);
+const Navbar = () => (
+<div className="Navbar">
+<nav>
+  <ul>
+    <li>
+      <Link to = "/registration">
+        <button type="button">Registration</button>
+      </Link>
+    </li>
 
-  const toggleRegisterDropdown = () => {
-    setRegisterDropdown(!registerDropdown);
-    setLoginDropdown(false);
-  };
+  </ul>
+</nav>
+<Outlet />
+</div>
+)
 
-  const toggleLoginDropdown = () => {
-    setLoginDropdown(!loginDropdown);
-    setRegisterDropdown(false);
-  };
-
-  const handleJobhunterRegister = () => {
-    console.log("Register as Jobhunter clicked");
-  };
-
-  const handleCompanyRegister = () => {
-    console.log("Register as Company clicked");
-  };
-
-  const handleJobhunterLogin = () => {
-    console.log("Login as Jobhunter clicked");
-  };
-
-  const handleCompanyLogin = () => {
-    console.log("Login as Company clicked");
-  };
-
-  return (
-    <div>
+/* <div>
       <nav className="navbar">
+        <ul>
         <div className="dropdownReg">
           <button className="regButton" onClick={toggleRegisterDropdown}>
             Register
           </button>
           {registerDropdown && (
             <div className="regDrop">
-              <button onClick={handleJobhunterRegister}>
-                Register as Jobhunter
-              </button>
+              <li>
+                <Link to="/registration">
+                  <button type="button">Register as Jobhunter</button>
+                </Link>
+              </li>
               <button onClick={handleCompanyRegister}>
                 Register as Company
               </button>
@@ -60,9 +49,41 @@ function Navbar() {
             </div>
           )}
         </div>
+        </ul>
       </nav>
     </div>
-  );
-}
+  ; */
+
+
+
+
+  // const [registerDropdown, setRegisterDropdown] = useState(false);
+  // const [loginDropdown, setLoginDropdown] = useState(false);
+
+  // const toggleRegisterDropdown = () => {
+  //   setRegisterDropdown(!registerDropdown);
+  //   setLoginDropdown(false);
+  // };
+
+  // const toggleLoginDropdown = () => {
+  //   setLoginDropdown(!loginDropdown);
+  //   setRegisterDropdown(false);
+  // };
+
+  // const handleJobhunterRegister = () => {
+  //   console.log("Register as Jobhunter clicked");
+  // };
+
+  // const handleCompanyRegister = () => {
+  //   console.log("Register as Company clicked");
+  // };
+
+  // const handleJobhunterLogin = () => {
+  //   console.log("Login as Jobhunter clicked");
+  // };
+
+  // const handleCompanyLogin = () => {
+  //   console.log("Login as Company clicked");
+  // };
 
 export default Navbar;
