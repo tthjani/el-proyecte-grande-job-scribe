@@ -21,7 +21,7 @@ public class CompanyRepository : ICompanyRepository
 
     public Company? GetByName(string name)
     {
-        return _context.Companies.SingleOrDefault(c => c.Name == name);
+        return _context.Companies.Include(j=>j.JobOffers).SingleOrDefault(c => c.Name == name);
     }
 
     public void Add(Company company)
