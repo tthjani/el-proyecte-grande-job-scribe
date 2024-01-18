@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobScribe_stranger_strings.Controllers;
 
+[ApiController]
+[Route("/api/[controller]/[action]")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authenticationService;
@@ -13,7 +15,7 @@ public class AuthController : ControllerBase
         _authenticationService = authenticationService;
     }
     
-    [HttpPost("Register")]
+    [HttpPost("")]
     public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
@@ -21,7 +23,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, "User");
+        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, request.Role);
 
         if (!result.Success)
         {
@@ -40,7 +42,7 @@ public class AuthController : ControllerBase
         }
     }
     
-    [HttpPost("Login")]
+    [HttpPost("")]
     public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
     {
         if (!ModelState.IsValid)
