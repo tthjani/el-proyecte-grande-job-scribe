@@ -25,6 +25,7 @@ builder.Services.AddCors(options => options.AddPolicy("CorsPolicy",
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+builder.Services.AddScoped<IApplicantRepository, ApplicantRepository>();
 
 
 var app = builder.Build();
