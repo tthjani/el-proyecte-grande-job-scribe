@@ -40,3 +40,69 @@
 .read-the-docs {
   color: #888;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(107, 105, 105);
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.regButton {
+  margin-left: 35px;
+  padding: 10px 15px;
+  scale: 120%;
+}
+
+.jobButton {
+  flex-grow: 1;
+  max-width: 10%;
+  margin: 0 20%;
+  padding: 10px 10px;
+  scale: 120%;
+}
+
+.loginButton {
+  margin-right: 40px;
+  padding: 10px 15px;
+  scale: 120%;
+}
+
+.dropdownReg {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownLog {
+  position: relative;
+  display: inline-block;
+}
+
+.regDrop{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 16px 0px;
+  min-width: 160px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.loginDrop {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  padding: 16px 0px;
+  min-width: 160px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.regDrop button,
+.loginDrop button {
+  width: 100%;
+  margin-bottom: 13px;
+  scale: 120%;
+}
