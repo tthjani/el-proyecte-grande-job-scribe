@@ -21,16 +21,17 @@ function App() {
       </header>
       <h1>Welcome to JobScribe basic frontend!</h1>
       <div className="card">
-        <button onClick={() => getData()}></button>
+        <button onClick={() => getData()}>Companies</button>
         {Array.isArray(companyData) && companyData.length > 0 ? (
+          <div className="table">
           <table>
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Location</th>
-                <th>Industry</th>
                 <th>Founded</th>
-                <th>Description</th>
+                <th>Industry</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -38,13 +39,13 @@ function App() {
                 <tr key={company.id}>
                   <td>{company.name}</td>
                   <td>{company.location}</td>
-                  <td>{company.industry}</td>
                   <td>{company.founded}</td>
-                  <td>{company.description}</td>
+                  <td>{company.industry}</td>
                 </tr>
               ))}
             </tbody>
           </table>
+          </div>
         ) : (
           <p>No companies available.</p>
         )}
