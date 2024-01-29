@@ -13,15 +13,15 @@ public class AuthController : ControllerBase
         _authenticationService = authenticationService;
     }
     
-    [HttpPost("Register")]
-    public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
+    [HttpPost("UserRegister")]
+    public async Task<ActionResult<RegistrationResponse>> UserRegister([FromBody]RegistrationRequest request)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, request.Role);
+        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, "User");
 
         if (!result.Success)
         {
@@ -29,7 +29,26 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
+        return CreatedAtAction(nameof(UserRegister), new RegistrationResponse(result.Email, result.UserName));
+    }
+    
+    [HttpPost("CompanyRegister")]
+    public async Task<ActionResult<RegistrationResponse>> CopmanyRegister([FromBody]RegistrationRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, "Company");
+
+        if (!result.Success)
+        {
+            AddErrors(result);
+            return BadRequest(ModelState);
+        }
+
+        return CreatedAtAction(nameof(CopmanyRegister), new RegistrationResponse(result.Email, result.UserName));
     }
 
     private void AddErrors(AuthResult result)
@@ -48,7 +67,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.LoginAsync(request.Email, request.Password);
+        var result = await _authenticationService.LoginAsync(request.UserName, request.Password);
 
         if (!result.Success)
         {

@@ -3,6 +3,12 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+
+}
+
+body{
+  background-color: rgb(56, 54, 54);
+  color: whitesmoke
 }
 
 body{

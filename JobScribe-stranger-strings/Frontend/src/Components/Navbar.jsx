@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [registerDropdown, setRegisterDropdown] = useState(false);
@@ -14,21 +15,6 @@ function Navbar() {
     setRegisterDropdown(false);
   };
 
-  const handleJobhunterRegister = () => {
-    console.log("Register as Jobhunter clicked");
-  };
-
-  const handleCompanyRegister = () => {
-    console.log("Register as Company clicked");
-  };
-
-  const handleJobhunterLogin = () => {
-    console.log("Login as Jobhunter clicked");
-  };
-
-  const handleCompanyLogin = () => {
-    console.log("Login as Company clicked");
-  };
 
   return (
     <div>
@@ -39,11 +25,11 @@ function Navbar() {
           </button>
           {registerDropdown && (
             <div className="regDrop">
-              <button onClick={handleJobhunterRegister}>
-                Register as Jobhunter
+              <button>
+                <Link to="/userregistration">Register as Jobhunter</Link>
               </button>
-              <button onClick={handleCompanyRegister}>
-                Register as Company
+              <button>
+                <Link to="/companyregistration">Register as Company</Link>
               </button>
             </div>
           )}
@@ -55,8 +41,8 @@ function Navbar() {
           </button>
           {loginDropdown && (
             <div className="loginDrop">
-              <button onClick={handleJobhunterLogin}>Login as Jobhunter</button>
-              <button onClick={handleCompanyLogin}>Login as Company</button>
+              <button>Login as Jobhunter</button>
+              <button>Login as Company</button>
             </div>
           )}
         </div>
