@@ -68,7 +68,7 @@ void AddCors()
 void AddServices()
 {
     builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-    builder.Services.AddDbContext<UsersContext>();
+    //builder.Services.AddDbContext<UsersContext>();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
 }

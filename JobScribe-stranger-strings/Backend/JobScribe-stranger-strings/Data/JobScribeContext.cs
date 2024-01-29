@@ -93,18 +93,71 @@ public class JobScribeContext : DbContext
                 new NiceToHaveModel { CVModelId = 1, JobOfferId = 1, Id = 2, Item = "React" }
             );
         
+        
         builder.Entity<Company>()
             .HasData(
                 new Company
                 {
-                    Description = "Kismacska",
-                    Founded = 2001,
-                    Id = 1,
-                    Industry = "igen",
-                    Location = "BP",
+                    Description = "In 2014, we started Codecool with the vision that quality coding education can change lives and workplaces for the better.",
+                    Founded = 2014,
+                    Id = 3,
+                    Industry = "Education",
+                    Location = "Budapest",
                     Name = "CodeCool"
                 }
             );
+        
+        builder.Entity<Company>()
+            .HasData(
+                new Company
+                {
+                    Description = "Polygence is a team of academics and educators united in our passion to make research more widely accessible to all interested students.",
+                    Founded = 2019,
+                    Id = 4,
+                    Industry = "Education",
+                    Location = "Budapest",
+                    Name = "Polygence"
+                }
+            );
+        
+        builder.Entity<Company>()
+            .HasData(
+                new Company
+                {
+                    Description = "Ulyssys is one of the leading software development companies in Hungary with a team of 300 professionals. It has a 30-year successful track record in custom software development.",
+                    Founded = 1991,
+                    Id = 5,
+                    Industry = "IT Services and IT Consulting",
+                    Location = "Budapest",
+                    Name = "Ulyssys Kft."
+                }
+            );
+        
+        builder.Entity<Company>()
+            .HasData(
+                new Company
+                {
+                    Description = "OPSWAT protects critical infrastructure (CIP). Our goal is to eliminate malware and zero-day attacks.",
+                    Founded = 2002,
+                    Id = 6,
+                    Industry = "Information technology & services",
+                    Location = "Veszprém",
+                    Name = "OPSWAT"
+                }
+            );
+        builder.Entity<Company>()
+            .HasData(
+                new Company
+                {
+                    Description = "Born in Stuttgart, made for the world. At Flexopus, we create New Work together with our customers. As a leading workplace management B2B software, we enable the flexible and digital management of office resources in one tool.",
+                    Founded = 2020,
+                    Id = 7,
+                    Industry = "Web tools",
+                    Location = "Budapest",
+                    Name = "Flexopus"
+                }
+            );
+        
         builder.Entity<JobOffer>()
             .HasData(
                 new JobOffer
@@ -114,7 +167,7 @@ public class JobScribeContext : DbContext
                     Id = 1,
                     Description = "Valami leírás kell",
                     Location = "Nyíregyh",
-                    CompanyId = 1,
+                    CompanyId = 4,
                     Name = "DevOps Engineer",
                     Published = new DateTime(2021, 01, 01), IsActive = true, Level = "junior"
                 }
