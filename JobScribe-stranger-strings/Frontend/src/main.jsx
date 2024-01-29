@@ -1,20 +1,25 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Navbar from './Components/Navbar';
+import App from "./App.jsx";
 import Registration from "./Components/Registration"
+import CompanyReg from "./Components/CompanyReg"
 import './index.css'
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navbar />,
+    element: <App />,
     children: [
       {
-        path: "/registration",
+        path: "/userregistration",
         element: <Registration />,
-      }
+      },
+      {
+        path: "/companyregistration",
+        element: <CompanyReg />,
+      },
     ],
   },
 ]);
