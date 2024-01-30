@@ -182,6 +182,14 @@ void AddAuthentication()
                     Encoding.UTF8.GetBytes("!SomethingSecret!!SomethingSecret!")
                 ),
             };
+            options.Events = new JwtBearerEvents()
+            {
+                OnMessageReceived = contex =>
+                {
+                    contex.Token = contex.Request.Cookies["access_token"];
+                    return Task.CompletedTask;
+                } 
+            };
         });
 }
 
