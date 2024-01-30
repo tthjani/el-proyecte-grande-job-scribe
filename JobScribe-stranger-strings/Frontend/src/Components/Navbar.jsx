@@ -41,7 +41,9 @@ function Navbar() {
           </button>
           {loginDropdown && (
             <div className="loginDrop">
-              <button>Login as Jobhunter</button>
+              <button>
+                <Link to="/userlogin">Login as Jobhunter</Link>
+              </button>
               <button>Login as Company</button>
             </div>
           )}
