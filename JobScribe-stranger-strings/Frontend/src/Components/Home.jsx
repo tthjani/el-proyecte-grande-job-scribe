@@ -12,7 +12,7 @@ function Home() {
     fetch("http://localhost:5225/api/Company/GetAllCompanies")
       .then((response) => response.json())
       .then((data) => setCompanyData(data.res))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error(error))
   }
 
   return (
@@ -30,17 +30,15 @@ function Home() {
                 <th>Location</th>
                 <th>Industry</th>
                 <th>Founded</th>
-                <th>Description</th>
               </tr>
             </thead>
             <tbody>
-              {companyData.map((company) => (
-                <tr key={company.id}>
+              {companyData.map((company, index) => (
+                <tr key={index}>
                   <td>{company.name}</td>
                   <td>{company.location}</td>
                   <td>{company.industry}</td>
                   <td>{company.founded}</td>
-                  <td>{company.description}</td>
                 </tr>
               ))}
             </tbody>
