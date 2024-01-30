@@ -15,7 +15,7 @@ public class AuthController : ControllerBase
         _authenticationService = authenticationService;
     }
     
-    [HttpPost("")]
+    [HttpPost]
     public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
@@ -42,7 +42,7 @@ public class AuthController : ControllerBase
         }
     }
     
-    [HttpPost("")]
+    [HttpPost]
     public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
     {
         if (!ModelState.IsValid)
