@@ -67,7 +67,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.LoginAsync(request.UserName, request.Password);
+        var result = await _authenticationService.LoginAsync(request.Email, request.Password);
 
         if (!result.Success)
         {
@@ -87,7 +87,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.LoginAsync(request.UserName, request.Password);
+        var result = await _authenticationService.LoginAsync(request.Email, request.Password);
 
         if (!result.Success)
         {
