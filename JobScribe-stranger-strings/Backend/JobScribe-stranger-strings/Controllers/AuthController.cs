@@ -59,8 +59,8 @@ public class AuthController : ControllerBase
         }
     }
     
-    [HttpPost("Login")]
-    public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
+    [HttpPost("UserLogin")]
+    public async Task<ActionResult<AuthResponse>> UserAuthenticate([FromBody] AuthRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -74,7 +74,41 @@ public class AuthController : ControllerBase
             AddErrors(result);
             return BadRequest(ModelState);
         }
-
+        setTokenCookie(result.Token, "access_token");
+        
         return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
+    }
+    
+    [HttpPost("Login")]
+    public async Task<ActionResult<AuthResponse>> CompanyAuthenticate([FromBody] AuthRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _authenticationService.LoginAsync(request.UserName, request.Password);
+
+        if (!result.Success)
+        {
+            AddErrors(result);
+            return BadRequest(ModelState);
+        }
+        setTokenCookie(result.Token, "access_token");
+        
+        return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
+    }
+    
+    //Logouthoz kell majd a return elé Response.Cookies.Delete("access_token");
+    
+    private void setTokenCookie(string token, string tokenName)
+    {
+
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Expires = DateTime.UtcNow.AddDays(7)
+        };
+        Response.Cookies.Append(tokenName, token, cookieOptions);
     }
 }
