@@ -13,14 +13,14 @@ public class ApplicantRepository : IApplicantRepository
         _context = context;
     }
 
-    public IEnumerable<Applicant> GetAllApplicants()
+    public Task<List<Applicant>> GetAllApplicants()
     {
-        return _context.Applicants.ToList();
+        return _context.Applicants.ToListAsync();
     }
 
-    public Applicant? GetApplicantById(int applicantID)
+    public Task<Applicant?> GetApplicantById(int applicantID)
     {
-        return _context.Applicants.SingleOrDefault(a=>a.Id == applicantID);
+        return _context.Applicants.SingleOrDefaultAsync(a=>a.Id == applicantID);
     }
 
     public void Add(Applicant applicant)

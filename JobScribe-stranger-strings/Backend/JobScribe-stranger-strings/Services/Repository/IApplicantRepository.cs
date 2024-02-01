@@ -4,8 +4,8 @@ namespace JobScribe_stranger_strings.Services.Repository;
 
 public interface IApplicantRepository
 {
-   IEnumerable<Applicant> GetAllApplicants();
-   Applicant GetApplicantById(int applicantID);
+   Task<List<Applicant>> GetAllApplicants();
+   Task<Applicant?> GetApplicantById(int applicantID);
 
    void Add(Applicant applicant);
    void Delete(Applicant applicant); 

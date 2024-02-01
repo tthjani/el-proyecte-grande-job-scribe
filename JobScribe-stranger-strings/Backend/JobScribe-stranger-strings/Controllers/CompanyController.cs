@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace JobScribe_stranger_strings.Controllers;
 
 [ApiController]
-[Route("/api/[controller]")]
+[Route("/api/[controller]/[action]")]
 public class CompanyController : ControllerBase
 {
     private readonly ILogger<CompanyController> _logger;
@@ -20,7 +20,7 @@ public class CompanyController : ControllerBase
         _companyRepository = companyRepository;
     }
 
-    [HttpGet("[action]")]
+    [HttpGet]
     public ActionResult Test()
     {
         {
@@ -30,7 +30,7 @@ public class CompanyController : ControllerBase
     }
 
 
-    [HttpGet("GetAllCompanies"), Authorize(Roles="User, Admin, Company")]
+    [HttpGet, Authorize(Roles="User, Admin, Company")]
     public ActionResult GetAllCompanies()
     {
         var respond =new {res=_companyRepository.GetAll()};
@@ -38,7 +38,8 @@ public class CompanyController : ControllerBase
         return Ok(respond);
     }
     
-    [HttpGet("GetCompanyByName"), Authorize(Roles="Admin, User, Company")]
+
+    [HttpGet, Authorize(Roles="Admin")]
     public async Task<ActionResult<Company>> GetCompanyByName(string companyName)
     {
         try
@@ -58,7 +59,7 @@ public class CompanyController : ControllerBase
         }
     }
     
-    [HttpPost("AddCompany"), Authorize(Roles="Admin, Company")]
+    [HttpPost]
     public async Task<ActionResult<Company>> AddCompany(Company company)
     {
         try
@@ -78,7 +79,7 @@ public class CompanyController : ControllerBase
         }
     }
     
-    [HttpDelete("DeleteCompany"), Authorize(Roles="Admin")]
+    [HttpDelete]
     public async Task<ActionResult<Company>> DeleteCompany(string companyName)
     {
         try
