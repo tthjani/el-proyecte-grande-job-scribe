@@ -20,7 +20,9 @@ public class CompanyController : ControllerBase
         _companyRepository = companyRepository;
     }
 
-    [HttpGet("")]
+
+    [HttpGet]
+
     public ActionResult Test()
     {
         {
@@ -29,7 +31,9 @@ public class CompanyController : ControllerBase
         }
     }
 
-    [HttpGet(""), Authorize(Roles="User, Admin")]
+
+
+    [HttpGet, Authorize(Roles="User, Admin, Company")]
     public ActionResult GetAllCompanies()
     {
         var respond =new {res=_companyRepository.GetAll()};
@@ -37,8 +41,10 @@ public class CompanyController : ControllerBase
         return Ok(respond);
     }
     
-    [HttpGet(""), Authorize(Roles="Admin")]
-    public ActionResult GetCompanyByName(string companyName)
+
+
+    [HttpGet, Authorize(Roles="Admin")]
+    public async Task<ActionResult<Company>> GetCompanyByName(string companyName)
     {
         try
         {
@@ -57,8 +63,9 @@ public class CompanyController : ControllerBase
         }
     }
     
-    [HttpPost("")]
-    public ActionResult AddCompany(Company company)
+
+    [HttpPost]
+    public async Task<ActionResult<Company>> AddCompany(Company company)
     {
         try
         {
@@ -77,8 +84,9 @@ public class CompanyController : ControllerBase
         }
     }
     
-    [HttpDelete("")]
-    public ActionResult DeleteCompany(string companyName)
+
+    [HttpDelete]
+    public async Task<ActionResult<Company>> DeleteCompany(string companyName)
     {
         try
         {

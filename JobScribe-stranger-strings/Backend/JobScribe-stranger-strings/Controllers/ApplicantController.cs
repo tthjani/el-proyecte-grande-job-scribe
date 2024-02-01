@@ -19,14 +19,15 @@ public class ApplicantController : ControllerBase
         _applicantRepository = applicantRepository;
     }
 
-    [HttpGet("")]
+
+    [HttpGet]
     public ActionResult GetAllApplicants()
     {
-        var response = new { res = _applicantRepository.GetAllApplicants() };
-        return Ok(response);
+        var respond =  new { res = _applicantRepository.GetAllApplicants() };
+        return Ok(respond);
     }
 
-    [HttpPost("")]
+    [HttpPost]
     public ActionResult AddApplicant(Applicant applicant)
     {
         try
@@ -47,19 +48,24 @@ public class ApplicantController : ControllerBase
         }      
     }
     
-    [HttpDelete("")]
-    public ActionResult DeleteApplicant(int applicantId)
+
+    [HttpDelete]
+    public async Task<ActionResult<Applicant>> DeleteApplicant(int applicantID)
     {
         try
         {
-            var applicant =  _applicantRepository.GetApplicantById(applicantId);
+            var applicant =  _applicantRepository.GetApplicantById(applicantID);
+
             if (applicant == null)
             {
                 return NotFound($"No applicant found!");
             }
 
             _applicantRepository.Delete(applicant);
-            var response = new { res = $"Applicant {applicant.Name} has successfully deleted" };
+
+            var response =  new { res = $"Applicant {applicant.Name} has succesfully deleted" };
+
+            
             return Ok(response);
         }
         catch (Exception ex)

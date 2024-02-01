@@ -16,14 +16,15 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<RegistrationResponse>> Register(RegistrationRequest request)
+
+    public async Task<ActionResult<RegistrationResponse>> UserRegister(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, request.Role);
+        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, "User");
 
         if (!result.Success)
         {
@@ -31,7 +32,26 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        return CreatedAtAction(nameof(Register), new RegistrationResponse(result.Email, result.UserName));
+        return CreatedAtAction(nameof(UserRegister), new RegistrationResponse(result.Email, result.UserName));
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult<RegistrationResponse>> CompanyRegister(RegistrationRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _authenticationService.RegisterAsync(request.Email, request.Username, request.Password, "Company");
+
+        if (!result.Success)
+        {
+            AddErrors(result);
+            return BadRequest(ModelState);
+        }
+
+        return CreatedAtAction(nameof(CompanyRegister), new RegistrationResponse(result.Email, result.UserName));
     }
 
     private void AddErrors(AuthResult result)
@@ -43,21 +63,63 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
+
+    public async Task<ActionResult<AuthResponse>> UserAuthenticate(AuthRequest request)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.LoginAsync(request.Email, request.Password);
+        var result = await _authenticationService.LoginAsync(request.Email, request.Password, "User");
 
         if (!result.Success)
         {
             AddErrors(result);
             return BadRequest(ModelState);
         }
-
+        setTokenCookie(result.Token, "access_token");
+        
         return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult<AuthResponse>> CompanyAuthenticate(AuthRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var result = await _authenticationService.LoginAsync(request.Email, request.Password, "Company");
+
+        if (!result.Success)
+        {
+            AddErrors(result);
+            return BadRequest(ModelState);
+        }
+        setTokenCookie(result.Token, "access_token");
+        
+        return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
+    }
+    
+    
+    [HttpPost]
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("access_token");
+        
+        return Ok(new { message = "Logout successful" });
+    }
+    
+    private void setTokenCookie(string token, string tokenName)
+    {
+
+        var cookieOptions = new CookieOptions
+        {
+            HttpOnly = true,
+            Expires = DateTime.UtcNow.AddMinutes(30)
+        };
+        Response.Cookies.Append(tokenName, token, cookieOptions);
     }
 }

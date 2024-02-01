@@ -4,8 +4,8 @@ namespace JobScribe_stranger_strings.Services.Repository;
 
 public interface ICompanyRepository
 {
-    IEnumerable<Company> GetAll();
-    Company? GetByName(string name);
+    Task<List<Company>> GetAll();
+    Task<Company?> GetByName(string name);
 
     void Add(Company company);
     void Delete(Company company); 

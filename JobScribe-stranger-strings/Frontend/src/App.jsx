@@ -1,26 +1,49 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+import Home from "./Components/Home";
+import CompanyRegistration from "./Components/Authentication/CompanyReg";
+import Registration from "./Components/Authentication/UserRegistration";
+import UserLogin from "./Components/Authentication/UserLogin";
+import CompanyLogin from "./Components/Authentication/CompanyLogin";
+import Logout from "./Components/Authentication/Logout";
 
 function App() {
-  const [test, setTest] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
-  function getData() {
-    fetch("http://localhost:5225/api/JobScribe")
-      .then((response) => response.json())
-      .then((data) => setTest(data.res))
-      .catch((error) => console.error(error));
-  }
+  useEffect(()=>{
+    if(isLoggedIn){
+      localStorage.setItem("login", isLoggedIn)
+    } else if(isLoggedIn === null){
+      setIsLoggedIn(localStorage.getItem("login"))
+    }else{
+      localStorage.removeItem("login")
+    }
+  }, [isLoggedIn])
 
   return (
     <>
-      <h1>Welcome to JobScribe basic frontend!</h1>
-      <div className="card">
-        <button onClick={() => getData()}>Click to test connection</button>
-        <p>{test}</p>
-      </div>
-      <p className="read-the-docs">
-        The page is under development! Come back later!!
-      </p>
+      <Router>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            }
+          />
+          <Route path="/userregistration" element={<Registration />} />
+          <Route
+            path="/companyregistration"
+            element={<CompanyRegistration />}
+          />
+          <Route
+            path="/userlogin"
+            element={<UserLogin setIsLoggedIn={setIsLoggedIn} />}
+          />
+          <Route path="/companylogin" element={<CompanyLogin />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+      </Router>
     </>
   );
 }
