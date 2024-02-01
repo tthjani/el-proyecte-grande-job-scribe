@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobScribe_stranger_strings.Controllers;
 
 [ApiController]
-[Route("/api/[controller]")]
+[Route("/api/[controller]/[action]")]
     
 public class ApplicantController : ControllerBase
 {
     private readonly ILogger<ApplicantController> _logger;
     private readonly IApplicantRepository _applicantRepository;
+    
     
     public ApplicantController(ILogger<ApplicantController> logger, IApplicantRepository applicantRepository)
     {
@@ -18,14 +19,15 @@ public class ApplicantController : ControllerBase
         _applicantRepository = applicantRepository;
     }
 
-    [HttpGet("[action]")]
+
+    [HttpGet]
     public ActionResult GetAllApplicants()
     {
-        var respond = new { res = _applicantRepository.GetAllApplicants() };
+        var respond =  new { res = _applicantRepository.GetAllApplicants() };
         return Ok(respond);
     }
 
-    [HttpPost("[action]")]
+    [HttpPost]
     public ActionResult AddApplicant(Applicant applicant)
     {
         try
@@ -34,7 +36,7 @@ public class ApplicantController : ControllerBase
             {
                 return BadRequest("Please add a valid Applicant");
             }
-        
+            
             _applicantRepository.Add(applicant);
             var response = new { res = applicant };
             return Ok(response);
@@ -46,19 +48,24 @@ public class ApplicantController : ControllerBase
         }      
     }
     
-    [HttpDelete("[action]")]
+
+    [HttpDelete]
     public async Task<ActionResult<Applicant>> DeleteApplicant(int applicantID)
     {
         try
         {
-            var applicant = _applicantRepository.GetApplicantById(applicantID);
+            var applicant =  _applicantRepository.GetApplicantById(applicantID);
+
             if (applicant == null)
             {
                 return NotFound($"No applicant found!");
             }
 
             _applicantRepository.Delete(applicant);
-            var response = new { res = $"Applicant {applicant.Name} has succesfully deleted" };
+
+            var response =  new { res = $"Applicant {applicant.Name} has succesfully deleted" };
+
+            
             return Ok(response);
         }
         catch (Exception ex)

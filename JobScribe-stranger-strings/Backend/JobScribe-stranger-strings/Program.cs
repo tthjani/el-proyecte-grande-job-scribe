@@ -68,6 +68,9 @@ void AddCors()
 void AddServices()
 {
     builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+    builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+    builder.Services.AddScoped<IMustHavesRepository, MustHavesRepository>();
+    builder.Services.AddScoped<INiceToHaveRepository, NiceToHaveRepository>();
     builder.Services.AddDbContext<UsersContext>();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService, TokenService>();
@@ -181,6 +184,14 @@ void AddAuthentication()
                 IssuerSigningKey = new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes("!SomethingSecret!!SomethingSecret!")
                 ),
+            };
+            options.Events = new JwtBearerEvents()
+            {
+                OnMessageReceived = contex =>
+                {
+                    contex.Token = contex.Request.Cookies["access_token"];
+                    return Task.CompletedTask;
+                } 
             };
         });
 }

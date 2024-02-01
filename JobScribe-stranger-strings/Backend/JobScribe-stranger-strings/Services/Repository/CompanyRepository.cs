@@ -14,14 +14,14 @@ public class CompanyRepository : ICompanyRepository
     }
 
 
-    public IEnumerable<Company> GetAll()
+    public Task<List<Company>> GetAll()
     {
-       return _context.Companies.Include(j => j.JobOffers).ToList();
+       return _context.Companies.Include(j => j.JobOffers).ToListAsync();
     }
 
-    public Company? GetByName(string name)
+    public Task<Company?> GetByName(string name)
     {
-        return _context.Companies.Include(j=>j.JobOffers).SingleOrDefault(c => c.Name == name);
+        return _context.Companies.Include(j=>j.JobOffers).SingleOrDefaultAsync(c => c.Name == name);
     }
 
     public void Add(Company company)

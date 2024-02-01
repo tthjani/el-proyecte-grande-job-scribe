@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 
 namespace JobScribe_stranger_strings.Services.Authentication;
@@ -40,7 +41,7 @@ public class AuthService : IAuthService
         return authResult;
     }
     
-    public async Task<AuthResult> LoginAsync(string email, string password)
+    public async Task<AuthResult> LoginAsync(string email, string password, string type)
     {
         var managedUser = await _userManager.FindByEmailAsync(email);
 
@@ -58,7 +59,15 @@ public class AuthService : IAuthService
         var roles = await _userManager.GetRolesAsync(managedUser);
         var accessToken = _tokenService.CreateToken(managedUser, roles[0]);
 
-        return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
+        Console.WriteLine(roles[0]);
+        Console.WriteLine(type);
+        if (roles[0] == type)
+        {
+            Console.WriteLine("asd--------------------------------------------------------------------------------------------------------------------");
+            return new AuthResult(true, managedUser.Email, managedUser.UserName, accessToken);
+        }
+
+        return new AuthResult(false, "", "", "");
     }
 
     private static AuthResult InvalidEmail(string email)
