@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("CompanyRegister")]
-    public async Task<ActionResult<RegistrationResponse>> CopmanyRegister(RegistrationRequest request)
+    public async Task<ActionResult<RegistrationResponse>> CompanyRegister(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -50,7 +50,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        return CreatedAtAction(nameof(CopmanyRegister), new RegistrationResponse(result.Email, result.UserName));
+        return CreatedAtAction(nameof(CompanyRegister), new RegistrationResponse(result.Email, result.UserName));
     }
 
     private void AddErrors(AuthResult result)
@@ -61,7 +61,7 @@ public class AuthController : ControllerBase
         }
     }
     
-    [HttpPost("UserLogin")]
+    [HttpPost("UserAuthenticate")]
     public async Task<ActionResult<AuthResponse>> UserAuthenticate(AuthRequest request)
     {
         if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
     }
     
-    [HttpPost("Login")]
+    [HttpPost("CompanyAuthenticate")]
     public async Task<ActionResult<AuthResponse>> CompanyAuthenticate(AuthRequest request)
     {
         if (!ModelState.IsValid)
