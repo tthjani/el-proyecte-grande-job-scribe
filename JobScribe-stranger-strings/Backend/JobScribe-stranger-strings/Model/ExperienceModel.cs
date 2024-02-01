@@ -4,5 +4,5 @@ public class ExperienceModel
 {
     public int Id { get; set; }
     public string Item { get; set; }
-    public int CVModelId { get; set; }
+    /*public int CVModelId { get; set; }*/
 }

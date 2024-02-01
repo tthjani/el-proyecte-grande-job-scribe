@@ -13,8 +13,8 @@ public class CVModel
     public string Education { get; set; }
     public string Description { get; set; }
     public bool IsActive { get; set; }
-    public List<ExperienceModel>? Experience { get; set; }
+    /*public List<ExperienceModel>? Experience { get; set; }
     public List<LanguageModel> Languages { get; set; }
     public List<MustHaveModel> MustHave { get; set; }
-    public List<NiceToHaveModel>?  NiceToHave { get; set; }
+    public List<NiceToHaveModel>?  NiceToHave { get; set; }*/
 }

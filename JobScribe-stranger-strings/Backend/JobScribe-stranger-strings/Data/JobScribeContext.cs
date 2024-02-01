@@ -75,22 +75,22 @@ public class JobScribeContext : DbContext
 
         builder.Entity<ExperienceModel>()
             .HasData(
-                new ExperienceModel { CVModelId = 1, Id = 1, Item = "Voltam már balatonon" }
+                new ExperienceModel { /*CVModelId = 1,*/ Id = 1, Item = "Voltam már balatonon" }
             );
 
         builder.Entity<LanguageModel>()
             .HasData(
-                new LanguageModel { CVModelId = 1, Id = 1, Item = "English" }
+                new LanguageModel { /*CVModelId = 1,*/ Id = 1, Item = "English" }
             );
 
         builder.Entity<MustHaveModel>()
             .HasData(
-                new MustHaveModel { CVModelId = 1, JobOfferId = 1, Id = 1, Item = "Javascript" }
+                new MustHaveModel { /*CVModelId = 1, JobOfferId = 1,*/ Id = 1, Item = "Javascript" }
             );
 
         builder.Entity<NiceToHaveModel>()
             .HasData(
-                new NiceToHaveModel { CVModelId = 1, JobOfferId = 1, Id = 2, Item = "React" }
+                new NiceToHaveModel { /*CVModelId = 1, JobOfferId = 1,*/ Id = 2, Item = "React" }
             );
         
         builder.Entity<Company>()
