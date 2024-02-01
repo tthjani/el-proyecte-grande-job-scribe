@@ -29,6 +29,7 @@ public class CompanyController : ControllerBase
         }
     }
 
+
     [HttpGet, Authorize(Roles="User, Admin, Company")]
     public ActionResult GetAllCompanies()
     {
@@ -37,6 +38,7 @@ public class CompanyController : ControllerBase
         return Ok(respond);
     }
     
+
     [HttpGet, Authorize(Roles="Admin")]
     public async Task<ActionResult<Company>> GetCompanyByName(string companyName)
     {

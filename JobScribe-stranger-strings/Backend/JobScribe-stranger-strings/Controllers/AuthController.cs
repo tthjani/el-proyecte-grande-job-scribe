@@ -69,7 +69,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.LoginAsync(request.Email, request.Password);
+        var result = await _authenticationService.LoginAsync(request.Email, request.Password, "User");
 
         if (!result.Success)
         {
@@ -89,7 +89,7 @@ public class AuthController : ControllerBase
             return BadRequest(ModelState);
         }
 
-        var result = await _authenticationService.LoginAsync(request.Email, request.Password);
+        var result = await _authenticationService.LoginAsync(request.Email, request.Password, "Company");
 
         if (!result.Success)
         {
@@ -101,7 +101,14 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
     }
     
-    //Logouthoz kell majd a return elé Response.Cookies.Delete("access_token");
+    
+    [HttpPost("Logout")]
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("access_token");
+        
+        return Ok(new { message = "Logout successful" });
+    }
     
     private void setTokenCookie(string token, string tokenName)
     {
