@@ -29,7 +29,7 @@ public class CompanyController : ControllerBase
         }
     }
 
-    [HttpGet("GetAllCompanies"), Authorize(Roles="User, Admin")]
+    [HttpGet("GetAllCompanies"), Authorize(Roles="User, Admin, Company")]
     public ActionResult GetAllCompanies()
     {
         var respond =new {res=_companyRepository.GetAll()};
