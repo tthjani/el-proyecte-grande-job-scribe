@@ -19,7 +19,7 @@ const UserLogin = () => {
     e.preventDefault();
 
     const data = { Email, Password };
-    fetch("http://localhost:5225/UserLogin", {
+    fetch("/api/Auth/UserLogin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -31,10 +31,12 @@ const UserLogin = () => {
           setSuccesfullLogin(true);
           console.log("Login sucessfully");
           alert("Succesfull Login!");
+          return res.json()
         } else {
           console.log("Login failed");
         }
       })
+      .then(d => {console.log(d)})
       .catch((error) => {
         console.error("Connection error:", error);
       });

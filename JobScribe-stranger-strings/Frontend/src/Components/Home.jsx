@@ -9,7 +9,7 @@ function Home() {
   }, []);
 
   function getData() {
-    fetch("http://localhost:5225/api/Company/GetAllCompanies")
+    fetch("api/Company/GetAllCompanies")
       .then((response) => response.json())
       .then((data) => setCompanyData(data.res))
       .catch((error) => console.error(error))
