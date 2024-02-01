@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 
-function Home() {
+function Home({isLoggedIn, setIsLoggedIn}) {
   const [companyData, setCompanyData] = useState("");
 
   useEffect(() =>{
@@ -10,15 +10,22 @@ function Home() {
 
   function getData() {
     fetch("api/Company/GetAllCompanies")
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok: ${response.statusText}`
+          );
+        }
+        return response.json();
+      })
       .then((data) => setCompanyData(data.res))
-      .catch((error) => console.error(error))
+      .catch((error) => console.error("Error:", error));
   }
 
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       </header>
       <h1>Welcome to JobScribe basic frontend!</h1>
       <div className="card">
