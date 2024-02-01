@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobScribe_stranger_strings.Controllers;
 
+[ApiController]
+[Route("/api/[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authenticationService;
@@ -14,7 +16,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("UserRegister")]
-    public async Task<ActionResult<RegistrationResponse>> UserRegister([FromBody]RegistrationRequest request)
+    public async Task<ActionResult<RegistrationResponse>> UserRegister(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -33,7 +35,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("CompanyRegister")]
-    public async Task<ActionResult<RegistrationResponse>> CopmanyRegister([FromBody]RegistrationRequest request)
+    public async Task<ActionResult<RegistrationResponse>> CopmanyRegister(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -60,7 +62,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("UserLogin")]
-    public async Task<ActionResult<AuthResponse>> UserAuthenticate([FromBody] AuthRequest request)
+    public async Task<ActionResult<AuthResponse>> UserAuthenticate(AuthRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -80,7 +82,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost("Login")]
-    public async Task<ActionResult<AuthResponse>> CompanyAuthenticate([FromBody] AuthRequest request)
+    public async Task<ActionResult<AuthResponse>> CompanyAuthenticate(AuthRequest request)
     {
         if (!ModelState.IsValid)
         {
@@ -107,7 +109,7 @@ public class AuthController : ControllerBase
         var cookieOptions = new CookieOptions
         {
             HttpOnly = true,
-            Expires = DateTime.UtcNow.AddDays(7)
+            Expires = DateTime.UtcNow.AddMinutes(30)
         };
         Response.Cookies.Append(tokenName, token, cookieOptions);
     }
