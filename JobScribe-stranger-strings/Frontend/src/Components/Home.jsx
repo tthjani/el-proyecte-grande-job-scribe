@@ -18,7 +18,10 @@ function Home({isLoggedIn, setIsLoggedIn}) {
         }
         return response.json();
       })
-      .then((data) => setCompanyData(data.res))
+      .then((data) => {
+        const companies = data.res?.result || [];
+        setCompanyData(companies);
+      })
       .catch((error) => console.error("Error:", error));
   }
 

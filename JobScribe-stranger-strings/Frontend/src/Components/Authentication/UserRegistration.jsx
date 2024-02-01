@@ -48,7 +48,7 @@ const UserRegistration = () => {
         <h1> Succesfull registration! </h1>
       ) : (
         <form onSubmit={handleSubmit}>
-          <h3>Registration as jh</h3>
+          <h3>Registration as Jobhunter</h3>
           <label className="username"> Username</label>
           <input
             name="username"

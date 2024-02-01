@@ -54,7 +54,7 @@ public class ApplicantController : ControllerBase
     {
         try
         {
-            var applicant =  _applicantRepository.GetApplicantById(applicantID);
+            var applicant = await _applicantRepository.GetApplicantById(applicantID);
 
             if (applicant == null)
             {

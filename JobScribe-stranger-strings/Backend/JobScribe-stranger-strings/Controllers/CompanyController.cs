@@ -90,7 +90,7 @@ public class CompanyController : ControllerBase
     {
         try
         {
-            var company = _companyRepository.GetByName(companyName);
+            var company = await _companyRepository.GetByName(companyName);
             if (company == null)
             {
                 return NotFound($"Company {companyName} not found");

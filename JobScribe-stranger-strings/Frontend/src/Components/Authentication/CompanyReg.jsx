@@ -51,7 +51,7 @@ const CompanyRegistration = () => {
            <h1> Succesfull registration! </h1>
         ):(
       <form onSubmit={handleSubmit}>
-        <h3>Registration as company</h3>
+        <h3>Registration as Company</h3>
         <label className="username"> Username</label>
         <input
           name="username"
