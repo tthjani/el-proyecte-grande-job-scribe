@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 
-function Home() {
+function Home({isLoggedIn, setIsLoggedIn}) {
   const [companyData, setCompanyData] = useState("");
 
   useEffect(() =>{
@@ -9,16 +9,23 @@ function Home() {
   }, []);
 
   function getData() {
-    fetch("http://localhost:5225/api/Company/GetAllCompanies")
-      .then((response) => response.json())
+    fetch("api/Company/GetAllCompanies")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `Network response was not ok: ${response.statusText}`
+          );
+        }
+        return response.json();
+      })
       .then((data) => setCompanyData(data.res))
-      .catch((error) => console.error(error));
+      .catch((error) => console.error("Error:", error));
   }
 
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       </header>
       <h1>Welcome to JobScribe basic frontend!</h1>
       <div className="card">
@@ -30,17 +37,15 @@ function Home() {
                 <th>Location</th>
                 <th>Industry</th>
                 <th>Founded</th>
-                <th>Description</th>
               </tr>
             </thead>
             <tbody>
-              {companyData.map((company) => (
-                <tr key={company.id}>
+              {companyData.map((company, index) => (
+                <tr key={index}>
                   <td>{company.name}</td>
                   <td>{company.location}</td>
                   <td>{company.industry}</td>
                   <td>{company.founded}</td>
-                  <td>{company.description}</td>
                 </tr>
               ))}
             </tbody>
