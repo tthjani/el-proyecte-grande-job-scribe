@@ -16,6 +16,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost]
+
     public async Task<ActionResult<RegistrationResponse>> UserRegister(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
@@ -62,6 +63,7 @@ public class AuthController : ControllerBase
     }
     
     [HttpPost]
+
     public async Task<ActionResult<AuthResponse>> UserAuthenticate(AuthRequest request)
     {
         if (!ModelState.IsValid)
@@ -102,7 +104,7 @@ public class AuthController : ControllerBase
     }
     
     
-    [HttpPost("Logout")]
+    [HttpPost]
     public IActionResult Logout()
     {
         Response.Cookies.Delete("access_token");

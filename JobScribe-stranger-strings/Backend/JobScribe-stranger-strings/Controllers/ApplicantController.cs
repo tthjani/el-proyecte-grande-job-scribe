@@ -12,11 +12,13 @@ public class ApplicantController : ControllerBase
     private readonly ILogger<ApplicantController> _logger;
     private readonly IApplicantRepository _applicantRepository;
     
+    
     public ApplicantController(ILogger<ApplicantController> logger, IApplicantRepository applicantRepository)
     {
         _logger = logger;
         _applicantRepository = applicantRepository;
     }
+
 
     [HttpGet]
     public ActionResult GetAllApplicants()
@@ -34,7 +36,7 @@ public class ApplicantController : ControllerBase
             {
                 return BadRequest("Please add a valid Applicant");
             }
-        
+            
             _applicantRepository.Add(applicant);
             var response = new { res = applicant };
             return Ok(response);
@@ -46,19 +48,24 @@ public class ApplicantController : ControllerBase
         }      
     }
     
+
     [HttpDelete]
     public async Task<ActionResult<Applicant>> DeleteApplicant(int applicantID)
     {
         try
         {
             var applicant =  _applicantRepository.GetApplicantById(applicantID);
+
             if (applicant == null)
             {
                 return NotFound($"No applicant found!");
             }
 
             _applicantRepository.Delete(applicant);
+
             var response =  new { res = $"Applicant {applicant.Name} has succesfully deleted" };
+
+            
             return Ok(response);
         }
         catch (Exception ex)

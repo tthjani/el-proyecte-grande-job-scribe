@@ -20,7 +20,9 @@ public class CompanyController : ControllerBase
         _companyRepository = companyRepository;
     }
 
+
     [HttpGet]
+
     public ActionResult Test()
     {
         {
@@ -28,6 +30,7 @@ public class CompanyController : ControllerBase
             return Ok(respond);
         }
     }
+
 
 
     [HttpGet, Authorize(Roles="User, Admin, Company")]
@@ -38,6 +41,7 @@ public class CompanyController : ControllerBase
         return Ok(respond);
     }
     
+
 
     [HttpGet, Authorize(Roles="Admin")]
     public async Task<ActionResult<Company>> GetCompanyByName(string companyName)
@@ -59,6 +63,7 @@ public class CompanyController : ControllerBase
         }
     }
     
+
     [HttpPost]
     public async Task<ActionResult<Company>> AddCompany(Company company)
     {
@@ -79,6 +84,7 @@ public class CompanyController : ControllerBase
         }
     }
     
+
     [HttpDelete]
     public async Task<ActionResult<Company>> DeleteCompany(string companyName)
     {
