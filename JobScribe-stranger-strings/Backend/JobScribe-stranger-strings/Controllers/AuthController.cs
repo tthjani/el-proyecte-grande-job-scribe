@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobScribe_stranger_strings.Controllers;
 
 [ApiController]
-[Route("/api/[controller]")]
+[Route("/api/[controller]/[action]")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authenticationService;
@@ -15,7 +15,7 @@ public class AuthController : ControllerBase
         _authenticationService = authenticationService;
     }
     
-    [HttpPost("UserRegister")]
+    [HttpPost]
     public async Task<ActionResult<RegistrationResponse>> UserRegister(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
@@ -34,7 +34,7 @@ public class AuthController : ControllerBase
         return CreatedAtAction(nameof(UserRegister), new RegistrationResponse(result.Email, result.UserName));
     }
     
-    [HttpPost("CompanyRegister")]
+    [HttpPost]
     public async Task<ActionResult<RegistrationResponse>> CompanyRegister(RegistrationRequest request)
     {
         if (!ModelState.IsValid)
@@ -61,7 +61,7 @@ public class AuthController : ControllerBase
         }
     }
     
-    [HttpPost("UserAuthenticate")]
+    [HttpPost]
     public async Task<ActionResult<AuthResponse>> UserAuthenticate(AuthRequest request)
     {
         if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ public class AuthController : ControllerBase
         return Ok(new AuthResponse(result.Email, result.UserName, result.Token));
     }
     
-    [HttpPost("CompanyAuthenticate")]
+    [HttpPost]
     public async Task<ActionResult<AuthResponse>> CompanyAuthenticate(AuthRequest request)
     {
         if (!ModelState.IsValid)
