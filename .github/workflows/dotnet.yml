@@ -26,4 +26,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore ./JobScribe-stranger-strings/Backend/JobScribe-stranger-strings.sln
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal ./JobScribe-stranger-strings/Backend/JobScribe-stranger-strings.sln
