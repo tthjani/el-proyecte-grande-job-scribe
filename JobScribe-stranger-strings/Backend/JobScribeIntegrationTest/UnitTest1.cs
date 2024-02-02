@@ -28,7 +28,7 @@ public class Tests
            
             _client = factory.CreateClient();
 
-            AuthRequest authRequest = new AuthRequest("test1@gmail.com", "string");
+            AuthRequest authRequest = new AuthRequest("user@user.com", "user123");
             var jsonString = JsonSerializer.Serialize(authRequest);
             var jsonStringContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
             var response = _client.PostAsync("http://localhost:5225/api/Auth/UserAuthenticate", jsonStringContent).Result;
@@ -45,7 +45,7 @@ public class Tests
             var companyName = "CodeCool";
 
             // Act
-            var response = await _client.GetAsync($"http://localhost:5225/api/Company/GetCompanyByName?companyName=${companyName}");
+            var response = await _client.GetAsync($"http://localhost:5225/api/Company/GetCompanyByName?companyName={companyName}");
 
             // Assert
             response.EnsureSuccessStatusCode();
@@ -54,20 +54,20 @@ public class Tests
             var responseContent = await response.Content.ReadAsStringAsync();
             var companyData = JsonConvert.DeserializeObject<Company>(responseContent);
             
-            Assert.NotNull(companyData);
-            // Assert.AreEqual(companyName, companyData.Name);
+            //Assert.NotNull(companyData);
+            Assert.AreEqual(companyName, companyData.Name);
         }
         
         [Test]
         public async Task GetCompanyAsync_ReturnsNotFoundForInvalidCompany()
         {
+
+            var companyName = "Aba";
             
+            var response = await _client.GetAsync($"http://localhost:5225/api/Company/GetCompanyByName?companyName=${companyName}");
         
             
-            var response = await _client.GetAsync($"http://localhost:5225/api/Company/GetCompanyByName?companyName=");
-        
-            
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
             
         }
         
@@ -78,7 +78,7 @@ public class Tests
             //delete Company if exist
             var newCompany = new Company
             {
-                Name = "Tata",
+                Name = "Hays",
                 Location = "London",
                 Industry = "Consulting",
                 Founded = 1994,
