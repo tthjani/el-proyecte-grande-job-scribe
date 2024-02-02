@@ -22,8 +22,8 @@ jobs:
       with:
         dotnet-version: 7.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./JobScribe-stranger-strings/Backend/JobScribe-stranger-strings.sln
     - name: Build
-      run: dotnet build --no-restore /JobScribe-stranger-strings/Backend/JobScribe-stranger-strings.sln
+      run: dotnet build --no-restore ./JobScribe-stranger-strings/Backend/JobScribe-stranger-strings.sln
     - name: Test
       run: dotnet test --no-build --verbosity normal
