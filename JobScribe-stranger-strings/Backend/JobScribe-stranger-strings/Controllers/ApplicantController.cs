@@ -78,7 +78,7 @@ public class ApplicantController : ControllerBase
     }
 
     [HttpPatch]
-    public async Task<ActionResult<Company>> PatchCompany(int id, ApplicantUpdate updatedApplicant)
+    public async Task<ActionResult<Company>> PatchApplicant(int id, ApplicantUpdate updatedApplicant)
     {
         try
         {
