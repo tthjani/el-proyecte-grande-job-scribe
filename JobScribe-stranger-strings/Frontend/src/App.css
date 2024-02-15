@@ -78,6 +78,12 @@ body{
   scale: 120%;
 }
 
+.cvButton {
+  margin-left: 35px;
+  padding: 10px 15px;
+  scale: 120%;
+}
+
 .jobButton {
   max-width: 15%;
   margin: 0 15%;

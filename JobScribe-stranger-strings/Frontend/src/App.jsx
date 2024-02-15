@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import CVCreator from "./CVCreator";
 import Home from "./Components/Home";
 import CompanyRegistration from "./Components/Authentication/CompanyReg";
 import Registration from "./Components/Authentication/UserRegistration";
 import UserLogin from "./Components/Authentication/UserLogin";
 import CompanyLogin from "./Components/Authentication/CompanyLogin";
 import Logout from "./Components/Authentication/Logout";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -35,6 +37,10 @@ function App() {
           <Route
             path="/companyregistration"
             element={<CompanyRegistration />}
+          />
+          <Route
+            path="/addCV"
+            element={<CVCreator />}
           />
           <Route
             path="/userlogin"
