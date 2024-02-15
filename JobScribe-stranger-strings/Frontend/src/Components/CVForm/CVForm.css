@@ -1,0 +1,21 @@
+.CVForm {
+    max-width: 400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+
+.control{
+    margin-bottom: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between; 
+  }
+  
+  .button-container button {
+    padding: 10px; 
+  }
+

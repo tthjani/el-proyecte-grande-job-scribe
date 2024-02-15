@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import "./CVForm.css";
+
 const CVForm = ({ onSave, disabled, applicant, onCancel }) => {
     const [name, setName] = useState(applicant?.name ?? "");
     const [birthDate, setBirthDate] = useState(applicant?.birthDate ?? "");
@@ -147,8 +149,7 @@ const CVForm = ({ onSave, disabled, applicant, onCancel }) => {
               id="isActive"
             />
           </div>
-    
-          <div className="buttons">
+          <div className="button-container">
             <button type="submit" disabled={disabled}>
               {applicant ? "Update CV" : "Create CV"}
             </button>
