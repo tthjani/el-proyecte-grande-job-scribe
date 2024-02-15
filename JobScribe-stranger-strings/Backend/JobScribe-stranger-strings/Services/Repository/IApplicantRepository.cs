@@ -9,4 +9,6 @@ public interface IApplicantRepository
 
    void Add(Applicant applicant);
    void Delete(Applicant applicant); 
+   
+   Task<Applicant> Update(int id,ApplicantUpdate applicant);
   }

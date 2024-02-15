@@ -47,7 +47,7 @@ public class ApplicantController : ControllerBase
             return StatusCode(500, "An error occured");
         }      
     }
-    
+
 
     [HttpDelete]
     public async Task<ActionResult<Applicant>> DeleteApplicant(int applicantID)
@@ -63,9 +63,9 @@ public class ApplicantController : ControllerBase
 
             _applicantRepository.Delete(applicant);
 
-            var response =  new { res = $"Applicant {applicant.Name} has succesfully deleted" };
+            var response = new { res = $"Applicant {applicant.Name} has succesfully deleted" };
 
-            
+
             return Ok(response);
         }
         catch (Exception ex)
@@ -73,5 +73,25 @@ public class ApplicantController : ControllerBase
             return StatusCode(500, "An error occured");
         }
     }
+
+    [HttpPatch]
+    public async Task<ActionResult<Company>> PatchCompany(int id, ApplicantUpdate updatedApplicant)
+    {
+        try
+        {
+            var company = await _applicantRepository.Update(id, updatedApplicant);
+            if (company == null)
+            {
+                return NotFound($"Company with ID {id} not found");
+            }
+
+            return Ok(company);
+        }
+        catch (Exception ex)
+        { 
+            return StatusCode(500, "An error occurred");
+        }
+    }
+    
 
 }
