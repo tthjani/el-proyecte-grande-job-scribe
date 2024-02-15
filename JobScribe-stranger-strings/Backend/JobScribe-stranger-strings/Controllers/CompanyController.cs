@@ -2,6 +2,7 @@ using JobScribe_stranger_strings.Data;
 using JobScribe_stranger_strings.Model;
 using JobScribe_stranger_strings.Services.Repository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -106,4 +107,22 @@ public class CompanyController : ControllerBase
         }
     }
     
+    [HttpPatch]
+    public async Task<ActionResult<Company>> PatchCompany(int id,CompanyUpdate updatedCompany)
+    {
+        try
+        {
+            var company = await _companyRepository.Update(id, updatedCompany);
+            if (company == null)
+            {
+                return NotFound($"Company with ID {id} not found");
+            }
+
+            return Ok(company);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, "An error occurred");
+        }
+    }
 }
