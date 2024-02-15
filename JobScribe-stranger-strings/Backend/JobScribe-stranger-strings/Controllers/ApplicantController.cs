@@ -97,7 +97,7 @@ public class ApplicantController : ControllerBase
     }
     
     [HttpPost]
-    public ActionResult AddCV(CVModel cvModel)
+    public ActionResult AddCVModel(CVModel cvModel)
     {
         try
         {
