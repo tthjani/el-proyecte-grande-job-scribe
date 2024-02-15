@@ -30,9 +30,14 @@ function Navbar({isLoggedIn, setIsLoggedIn}) {
       <nav className="navbar">
         <div className="dropdownReg">
           {isLoggedIn ?  (
+            <>
             <button className="regButton">
               <Link to="/profile">Profile</Link>
             </button>
+             <button className="cvButton">
+             <Link to="/addCV">Add CV</Link>
+           </button>
+           </>
           ) : (
             <button className="regButton" onClick={toggleRegisterDropdown}>
               Register
