@@ -71,6 +71,7 @@ void AddServices()
     builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
     builder.Services.AddScoped<IMustHavesRepository, MustHavesRepository>();
     builder.Services.AddScoped<INiceToHaveRepository, NiceToHaveRepository>();
+    builder.Services.AddScoped<ICvModelRepository, CvModelRepository>();
     builder.Services.AddDbContext<UsersContext>();
     builder.Services.AddScoped<IAuthService, AuthService>();
     builder.Services.AddScoped<ITokenService, TokenService>();

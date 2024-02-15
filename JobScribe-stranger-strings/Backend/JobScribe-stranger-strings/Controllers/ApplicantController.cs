@@ -11,12 +11,15 @@ public class ApplicantController : ControllerBase
 {
     private readonly ILogger<ApplicantController> _logger;
     private readonly IApplicantRepository _applicantRepository;
-    
-    
-    public ApplicantController(ILogger<ApplicantController> logger, IApplicantRepository applicantRepository)
+    private readonly ICvModelRepository _cvModelRepository;
+
+
+    public ApplicantController(ILogger<ApplicantController> logger, IApplicantRepository applicantRepository,
+        ICvModelRepository cvModelRepository)
     {
         _logger = logger;
         _applicantRepository = applicantRepository;
+        _cvModelRepository = cvModelRepository;
     }
 
 
@@ -93,5 +96,24 @@ public class ApplicantController : ControllerBase
         }
     }
     
-
+    [HttpPost]
+    public ActionResult AddCV(CVModel cvModel)
+    {
+        try
+        {
+            if (cvModel == null)
+            {
+                return BadRequest("Please add a valid Applicant");
+            }
+            
+            _cvModelRepository.Add(cvModel);
+            var response = new { res = cvModel };
+            return Ok(response);
+        }
+        
+        catch (Exception e)
+        {
+            return StatusCode(500, "An error occured");
+        }      
+    }
 }
